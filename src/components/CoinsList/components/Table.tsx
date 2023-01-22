@@ -21,9 +21,12 @@ export default function CoinsListTable({ coins }: CoinsListTableProps) {
         {coins?.map((coin) => (
           <tr>
             <td>{coin.market_cap_rank}</td>
-            <td className="flex gap-3">
+            <td className="flex gap-3 items-center">
               <img className="w-6 h-6" src={coin.image} alt={coin.name} />
-              <span> {coin.name}</span>
+              <span>{coin.name}</span>
+              <span className=" text-neutral-400 text-xs">
+                {coin.symbol.toUpperCase()}
+              </span>
             </td>
             <td>
               <FormattedNumber
@@ -31,6 +34,15 @@ export default function CoinsListTable({ coins }: CoinsListTableProps) {
                 style="currency"
                 currency="USD"
               />
+            </td>
+            <td
+              className={
+                coin.price_change_percentage_24h > 0
+                  ? "text-green-500"
+                  : "text-red-500"
+              }
+            >
+              {coin.price_change_percentage_24h?.toFixed(2)} %
             </td>
             <td>
               <FormattedNumber
